@@ -11,7 +11,7 @@ public class UsuarioService {
 
     private UsuarioRepository repository;
 
-    public UsuarioEntity cadastroUnico(UsuarioEntity usuario){
+    public UsuarioEntity cadastro(UsuarioEntity usuario){
         return repository.insert(usuario);
     }
 
