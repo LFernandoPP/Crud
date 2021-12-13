@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioService {
 
-    UsuarioRepository repository;
+    private UsuarioRepository repository;
 
-    public UsuarioEntity cadastroUnico(UsuarioEntity usuario){
+    public UsuarioEntity cadastroUnico(UsuarioEntity usuario) {
         return repository.insert(usuario);
     }
 
+    public UsuarioEntity buscaPorEmail(String email) {
+        return repository.findByEmail(email);
+    }
 }
