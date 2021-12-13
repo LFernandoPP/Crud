@@ -22,4 +22,8 @@ public class UsuarioService {
     public UsuarioEntity atualiza(UsuarioEntity usuario){
         return repository.save(usuario);
     }
+
+    public void deleta(String email){
+        repository.delete(buscaPorEmail(email));
+    }
 }
