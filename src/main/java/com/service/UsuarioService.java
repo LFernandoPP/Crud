@@ -18,4 +18,8 @@ public class UsuarioService {
     public UsuarioEntity buscaPorEmail(String email) {
         return repository.findByEmail(email);
     }
+
+    public UsuarioEntity atualiza(UsuarioEntity usuario){
+        return repository.save(usuario);
+    }
 }
