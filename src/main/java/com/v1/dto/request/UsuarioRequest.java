@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -15,7 +14,6 @@ import javax.validation.constraints.Size;
 @Setter
 public class UsuarioRequest {
 
-    @Indexed(unique = true)
     @Email
     private String email;
 
