@@ -9,10 +9,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @AllArgsConstructor
 @RequestMapping(path = "/crud/v1")
@@ -29,7 +28,7 @@ public class UsuarioController {
     })
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/usuario")
-    public UsuarioResponse cadastra(UsuarioRequest usuario) {
+    public UsuarioResponse cadastra(@Valid @RequestBody UsuarioRequest usuario) {
         return facade.cadastra(usuario);
     }
 }
