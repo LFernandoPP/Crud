@@ -13,7 +13,7 @@ public class ValidacaoService {
     private UsuarioRepository repository;
 
     public void validaUsuario(String email){
-        if(repository.findByEmail(email).getId().isEmpty()){
+        if(repository.findByEmail(email).getEmail().isEmpty()){
             throw new ApiException("Usuario nao encontrado", HttpStatus.NOT_FOUND);
         }
     }
