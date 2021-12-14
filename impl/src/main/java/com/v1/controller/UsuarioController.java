@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
-@RequestMapping(path = "/usuario")
+@RequestMapping(path = "/crud/v1")
 @RestController
 public class UsuarioController {
 
     private UsuarioFacade facade;
 
-    @PostMapping
+    @PostMapping("/usuario")
     public UsuarioResponse cadastra(UsuarioRequest usuario) {
         return facade.cadastra(usuario);
     }
