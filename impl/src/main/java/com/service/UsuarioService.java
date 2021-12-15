@@ -11,19 +11,19 @@ public class UsuarioService {
 
     private UsuarioRepository repository;
 
-    public UsuarioEntity cadastro(UsuarioEntity usuario){
-        return repository.insert(usuario);
+    public UsuarioEntity cadastro(UsuarioEntity usuario) {
+        return repository.save(usuario);
     }
 
     public UsuarioEntity buscaPorEmail(String email) {
         return repository.findByEmail(email);
     }
 
-    public UsuarioEntity atualiza(UsuarioEntity novoUsuario){
+    public UsuarioEntity atualiza(UsuarioEntity novoUsuario) {
         return repository.save(novoUsuario);
     }
 
-    public void deleta(String email){
+    public void deleta(String email) {
         repository.delete(buscaPorEmail(email));
     }
 }
