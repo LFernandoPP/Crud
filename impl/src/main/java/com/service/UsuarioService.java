@@ -2,7 +2,9 @@ package com.service;
 
 import com.domain.entity.UsuarioEntity;
 import com.domain.repository.UsuarioRepository;
+import com.exception.ApiException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -16,7 +18,7 @@ public class UsuarioService {
     }
 
     public UsuarioEntity buscaPorEmail(String email) {
-        return repository.findByEmail(email);
+        return repository.findByEmail(email).orElseThrow(() -> new ApiException("Usuario não encontrado", HttpStatus.NOT_FOUND));
     }
 
     public UsuarioEntity atualiza(UsuarioEntity novoUsuario) {
