@@ -4,6 +4,7 @@ import com.exception.ExceptionResponse;
 import com.facade.UsuarioFacade;
 import com.v1.dto.request.UsuarioRequest;
 import com.v1.dto.response.UsuarioResponse;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Api(value = "Usuario controller")
 @AllArgsConstructor
 @RequestMapping(path = "/crud/v1")
 @RestController
