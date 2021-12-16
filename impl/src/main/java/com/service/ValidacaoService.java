@@ -17,4 +17,10 @@ public class ValidacaoService {
             throw new ApiException("Usuario não encontrado", HttpStatus.NOT_FOUND);
         }
     }
+
+    public void validaLista() {
+        if (repository.findAll().isEmpty()) {
+            throw new ApiException("Usuarios não encontrados", HttpStatus.NOT_FOUND);
+        }
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Api(value = "Usuario controller")
 @AllArgsConstructor
@@ -25,7 +26,7 @@ public class UsuarioController {
     @ApiOperation(value = "Cria um novo usuario")
     @ApiResponses({
             @ApiResponse(code = 201, message = "Usuario criado"),
-            @ApiResponse(code = 400, message = "Requisição ruim", response = ExceptionResponse.class),
+            @ApiResponse(code = 400, message = "Requisição mal formada", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Erro interno do servidor", response = ExceptionResponse.class)
     })
     @ResponseStatus(HttpStatus.CREATED)
@@ -34,20 +35,32 @@ public class UsuarioController {
         return facade.cadastra(usuario);
     }
 
+    @ApiOperation(value = "Lista todos os usuarios")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Usuarios encontrados"),
+            @ApiResponse(code = 404, message = "Usuarios não encontrados", response = ExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Erro interno do servidor", response = ExceptionResponse.class)
+    })
+    @GetMapping("/usuario/")
+    public List<UsuarioResponse> lista() {
+        return facade.lista();
+    }
+
     @ApiOperation(value = "Busca o usuario pelo email")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Usuario encontrado"),
             @ApiResponse(code = 404, message = "Usuario não encontrado", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Erro interno do servidor", response = ExceptionResponse.class)
     })
-    @GetMapping("/usuario")
-    public UsuarioResponse buscaEmail(@RequestParam String email) {
+    @GetMapping("/usuario/{email}")
+    public UsuarioResponse buscaEmail(@PathVariable String email) {
         return facade.buscaEmail(email);
     }
 
     @ApiOperation(value = "Atualiza o usuario")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Usuario atualizado"),
+            @ApiResponse(code = 400, message = "Requisição mal formada", response = ExceptionResponse.class),
             @ApiResponse(code = 404, message = "Usuario não encontrado", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Erro interno do servidor", response = ExceptionResponse.class)
     })
@@ -59,7 +72,6 @@ public class UsuarioController {
     @ApiOperation(value = "Deleta o usuario")
     @ApiResponses({
             @ApiResponse(code = 204, message = "Usuario deletado"),
-            @ApiResponse(code = 404, message = "Usuario não encontrado", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Erro interno do servidor", response = ExceptionResponse.class)
     })
     @ResponseStatus(HttpStatus.NO_CONTENT)

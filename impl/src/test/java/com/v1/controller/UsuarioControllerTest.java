@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.stubs.UsuarioEntityStub.generateListUsuarioEntity;
 import static com.stubs.UsuarioEntityStub.generateUsuarioEntity;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -48,17 +49,33 @@ public class UsuarioControllerTest {
     }
 
     @Test
+    public void lista_ReturnCode_Ok() throws Exception {
+        given(repository.findAll()).willReturn(generateListUsuarioEntity());
+        this.mockMvc.perform(get("/crud/v1/usuario/"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void buscaEmail_ReturnCode_Ok() throws Exception {
         given(repository.findByEmail(any())).willReturn(generateUsuarioEntity());
-        this.mockMvc.perform(get("/crud/v1/usuario")
+        this.mockMvc.perform(get("/crud/v1/usuario/{email}", generateUsuarioEntity().getEmail())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void atualiza_ReturnCode_Ok() throws Exception {
+        given(repository.findByEmail(any())).willReturn(generateUsuarioEntity());
+        given(repository.save(any())).willReturn(generateUsuarioEntity());
+        this.mockMvc.perform(put("/crud/v1/usuario")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("email", generateUsuarioEntity().getEmail()))
+                        .content(new ObjectMapper()
+                                .writeValueAsString(generateUsuarioEntity())))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void deleta_ReturnCode_NoContent() throws Exception {
-        given(repository.findByEmail(any())).willReturn(generateUsuarioEntity());
         this.mockMvc.perform(delete("/crud/v1/usuario/{email}", generateUsuarioEntity().getEmail())
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isNoContent());

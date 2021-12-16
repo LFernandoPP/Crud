@@ -9,9 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
+
 import static com.stubs.UsuarioEntityStub.generateUsuarioEntity;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 public class ValidacaoServiceTest {
@@ -30,6 +32,14 @@ public class ValidacaoServiceTest {
         expectedException.expectMessage("Usuario não encontrado");
         when(repository.findByEmail(any())).thenReturn(null);
         valida.validaUsuario(generateUsuarioEntity().getEmail());
+        verify(repository, times(1)).findByEmail(generateUsuarioEntity().getEmail());
+    }
 
+    @Test
+    public void validaLista_returnException() {
+        expectedException.expectMessage("Usuarios não encontrados");
+        when(repository.findAll()).thenReturn(Collections.emptyList());
+        valida.validaLista();
+        verify(repository, times(1)).findAll();
     }
 }

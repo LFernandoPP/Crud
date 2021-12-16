@@ -5,6 +5,8 @@ import com.domain.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class UsuarioService {
@@ -25,6 +27,10 @@ public class UsuarioService {
     }
 
     public void deleta(String email) {
-        repository.delete(buscaPorEmail(email));
+        repository.deleteByEmail(email);
+    }
+
+    public List<UsuarioEntity> lista() {
+        return repository.findAll();
     }
 }
