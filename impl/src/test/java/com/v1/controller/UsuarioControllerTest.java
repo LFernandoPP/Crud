@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static com.stubs.UsuarioEntityStub.generateUsuarioEntity;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,5 +46,14 @@ public class UsuarioControllerTest {
                         .content(new ObjectMapper()
                                 .writeValueAsString(generateUsuarioEntity())))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void buscaEmail_ReturnCode_Ok() throws Exception {
+        given(repository.findByEmail(any())).willReturn(generateUsuarioEntity());
+        this.mockMvc.perform(get("/crud/v1/usuario")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("email", generateUsuarioEntity().getEmail()))
+                .andExpect(status().isOk());
     }
 }
