@@ -30,4 +30,9 @@ public class UsuarioFacade {
         valida.validaUsuario(email);
         service.deleta(email);
     }
+
+    public UsuarioResponse atualiza(UsuarioRequest usuario) {
+        valida.validaUsuario(usuario.getEmail());
+        return mapUsuarioEntityToResponse(service.atualiza(mapUsuarioRequestToEntity(usuario)));
+    }
 }

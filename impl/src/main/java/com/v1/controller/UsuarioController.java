@@ -45,6 +45,17 @@ public class UsuarioController {
         return facade.buscaEmail(email);
     }
 
+    @ApiOperation(value = "Atualiza o usuario")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Usuario atualizado"),
+            @ApiResponse(code = 404, message = "Usuario não encontrado", response = ExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Erro interno do servidor", response = ExceptionResponse.class)
+    })
+    @PutMapping("/usuario")
+    public UsuarioResponse atualiza(@RequestBody UsuarioRequest usuario) {
+        return facade.atualiza(usuario);
+    }
+
     @ApiOperation(value = "Deleta o usuario")
     @ApiResponses({
             @ApiResponse(code = 204, message = "Usuario deletado"),

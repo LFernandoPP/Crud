@@ -20,6 +20,7 @@ public class UsuarioService {
     }
 
     public UsuarioEntity atualiza(UsuarioEntity novoUsuario) {
+        novoUsuario.setId(repository.findByEmail(novoUsuario.getEmail()).getId());
         return repository.save(novoUsuario);
     }
 
