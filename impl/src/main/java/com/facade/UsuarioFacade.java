@@ -25,4 +25,9 @@ public class UsuarioFacade {
         valida.validaUsuario(email);
         return mapUsuarioEntityToResponse(service.buscaPorEmail(email));
     }
+
+    public void deleta(String email) {
+        valida.validaUsuario(email);
+        service.deleta(email);
+    }
 }

@@ -44,4 +44,16 @@ public class UsuarioController {
     public UsuarioResponse buscaEmail(@RequestParam String email) {
         return facade.buscaEmail(email);
     }
+
+    @ApiOperation(value = "Deleta o usuario")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "Usuario deletado"),
+            @ApiResponse(code = 404, message = "Usuario não encontrado", response = ExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Erro interno do servidor", response = ExceptionResponse.class)
+    })
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/usuario/{email}")
+    public void deleta(@PathVariable String email) {
+        facade.deleta(email);
+    }
 }

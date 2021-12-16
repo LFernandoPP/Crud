@@ -19,8 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static com.stubs.UsuarioEntityStub.generateUsuarioEntity;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -55,5 +54,13 @@ public class UsuarioControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("email", generateUsuarioEntity().getEmail()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleta_ReturnCode_NoContent() throws Exception {
+        given(repository.findByEmail(any())).willReturn(generateUsuarioEntity());
+        this.mockMvc.perform(delete("/crud/v1/usuario/{email}", generateUsuarioEntity().getEmail())
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isNoContent());
     }
 }
